@@ -28,7 +28,6 @@ export function DialogOverlay({className, ref, ...props}: React.ComponentProps<t
 
 export function DialogContent({className, children, ...props}: React.ComponentProps<typeof DialogPrimitive.Content>) {
     return (<DialogPrimitive.Portal>
-        <DialogHeader />
         <DialogOverlay />
         <DialogPrimitive.Content className={cn(`
             fixed left-[50%] top-[50%] w-full max-w-[32rem]
