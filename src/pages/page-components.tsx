@@ -13,7 +13,6 @@ import { useForm } from "react-hook-form";
 import ImageFilePreview from "../components/image-file-preview";
 import { Dialog } from "@radix-ui/react-dialog";
 import {DialogBody, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTrigger} from "../components/dialog";
-import { Album } from "../components/album";
 
 export default function PageComponents() {
 	const form = useForm();
@@ -85,7 +84,6 @@ export default function PageComponents() {
 							Você pode selecionar arquivos em PNG, JPG, JPEG ou WEBP ou SVG
 							</Alert>
 							<InputSingleFile form={form} allowedExtesions={['png', 'jpg', 'jpeg', 'webp']} replaceBy={<ImageFilePreview src={fileSource} alt="Imagem" />} maxFileSizeInMB={50} {...form.register("file")} />
-							<Album />
 						</DialogBody>
 						<DialogFooter>
 							<DialogClose asChild>
