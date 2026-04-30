@@ -2,6 +2,7 @@ import PhotoWidget from "../contexts/photos/components/photo-widget";
 import type { Photo } from "../contexts/photos/models/photos";
 import Text from "../components/text";
 import Skeleton from "../components/skeleton";
+import AlbumsList  from "../contexts/albums/components/albums-filter";
 
 interface PhotosListProps {
     photos: Photo[];
@@ -35,5 +36,6 @@ export default function PhotosList({ photos, loading }: PhotosListProps) {
         </div>
       )}
     </div>
+    
   );
 }
