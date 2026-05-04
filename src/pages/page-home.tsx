@@ -1,14 +1,17 @@
 import Container from "../components/container"
-import PhotoWidget from "../contexts/photos/components/photo-widget"
-import AlbumsList from "../contexts/albums/components/albums-filter"
+import AlbumsFilter from "../contexts/albums/components/albums-filter"
 import PhotosList from "../cors-components/photos-list"
-import {albums, photos} from "../mocks/gallery-data";
+import useAlbums from "../contexts/albums/hooks/use-albums";
+import usePhotos from "../contexts/photos/hooks/use-photos";
+
 
 export default function PageHome() {
+    const {albums, isLoadingAlbums} = useAlbums();
+    const {photos, isLoadingPhotos} = usePhotos();
     return (
     <Container>
-        <AlbumsList className="mb-9" albums={albums}/>
-        <PhotosList photos={photos}/>
+        <AlbumsFilter className="mb-9" albums={albums} loading={isLoadingAlbums} />
+        <PhotosList photos={photos} loading={isLoadingPhotos} />
     </Container>
     )
 }
