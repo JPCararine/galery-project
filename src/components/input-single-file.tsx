@@ -54,7 +54,7 @@ export default function InputSingleFile({ replaceBy , form , size, error, allowe
         fileSize: formFile?.size || 0
     }), [formFile]);
     const errorMessage = React.useMemo(() => {
-    if (!formFile) return null;
+    if (!formFile) return error || null;
 
     if (!isValidExtension()) {
         return "Extensão de arquivo não permitida.";
@@ -62,10 +62,6 @@ export default function InputSingleFile({ replaceBy , form , size, error, allowe
 
     if (!isValidSize()) {
         return "Tamanho do arquivo excede o limite máximo.";
-    }
-
-    if (error) {
-        return error;
     }
 
     return null;
