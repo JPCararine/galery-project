@@ -6,4 +6,13 @@ export const photoNewFormSchema = z.object({
     albumsIds: z.array(z.string().uuid()).optional(),
 });
 
+export interface UpdatePhotoFormSchema {
+    albumsIds?: string[];
+}
+
+export const updatePhotoFormSchema = z.object({
+    albumsIds: z.array(z.string().uuid()),
+});
+
 export type PhotoNewFormSchema = z.infer<typeof photoNewFormSchema>;
+export type UUpdatePhotoFormSchema = z.infer<typeof updatePhotoFormSchema>;

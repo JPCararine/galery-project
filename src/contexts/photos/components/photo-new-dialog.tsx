@@ -12,7 +12,6 @@ import useAlbums from "../../albums/hooks/use-albums";
 import { photoNewFormSchema, type PhotoNewFormSchema } from "../schemas";
 import {zodResolver} from "@hookform/resolvers/zod";
 import React from "react";
-import usePhotos from "../hooks/use-photos";
 import usePhoto from "../hooks/use-photo";
 interface PhotoNewDialogProps {
     trigger: React.ReactNode;
