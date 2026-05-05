@@ -25,11 +25,21 @@ export class AlbumsService {
     
     const album: Album = {
       id: albumId,
-      title: albumData.title
+      title: albumData.title,
+      
     };
 
-    const db = await this.dbService.readDatabase();
+     const db = await this.dbService.readDatabase();
     db.albums.push(album);
+
+    if (albumData.photoIds && albumData.photoIds.length > 0) {
+        const relations = albumData.photoIds.map(photoId => ({
+            albumId,
+            photoId,
+        }));
+        db.photosOnAlbums.push(...relations);
+    }
+
     await this.dbService.writeDatabase(db);
 
     return album;
