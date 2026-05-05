@@ -7,7 +7,9 @@ import Skeleton from "../../../components/skeleton";
 import PhotosNavigator from "./photos-navigator";
 import AlbumsListSelectable from "../../albums/components/albums-list-selectable";
 import usePhoto from "../hooks/use-photo";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { PhotoPutOnAlbum } from "./photo-put-on-album";
+
 
 
 
@@ -15,6 +17,8 @@ import { useParams } from "react-router";
 export default function PhotoDetails() {
     const [selectedAlbums, setSelectedAlbums] = React.useState<string[]>([]);
     const { id } = useParams();
+    const {updatePhoto, deletePhoto} = usePhoto(id);
+    const navigate = useNavigate();
         const { photo, previousPhotoId, nextPhotoId, isLoadingPhoto } = usePhoto(id);
         if (!photo) {
         return <div>Foto não encontrada</div>;
@@ -22,11 +26,20 @@ export default function PhotoDetails() {
    
 
     function handleDeleteFromAlbums() {
+        if(!photo || !id) return;
         const albumsIds = photo?.albums?.filter((album) =>  !selectedAlbums.includes(album.id)).map((album) => album.id);
 
 
-        console.log("Enviando pro backend", albumsIds); 
+        updatePhoto(id, {
+            albumsIds
+        });
         setSelectedAlbums([]);
+    }
+    function handleDeletePhoto() {
+        if(!id) return;
+
+        deletePhoto(id);
+        navigate("/");
     }
     return (
         <div>
@@ -50,7 +63,14 @@ export default function PhotoDetails() {
                     <Skeleton className="h-[21rem]" />
                 )}
                 {!isLoadingPhoto ? (
+                <>
+                
+                <PhotoPutOnAlbum photoId={id as string} trigger={<Button variant="primary">Adicionar/Remover álbuns</Button>} />
+                {photo.albums?.length > 0 && (
                 <Button variant="destructive" onClick={handleDeleteFromAlbums}>Excluir foto de álbuns selecionados</Button>
+                )}
+                <Button variant="destructive" onClick={handleDeletePhoto}>Excluir foto</Button>
+                </>
                 ) : (
                     <Skeleton className="w-20 h-10" />
                 )}
@@ -63,3 +83,4 @@ export default function PhotoDetails() {
         </div> 
     )
 }
+
