@@ -28,3 +28,15 @@ export default function usePhotos() {
     };
 }
 
+export function useAllPhotos() {
+    const {data, isLoading} = useQuery<Photo[]>({
+        queryKey: ["photos"],
+        queryFn: () => fetcher(`/photos`)
+    })
+
+    return {
+        photos: data || [],
+        isLoadingPhotos: isLoading,
+    };
+}
+
